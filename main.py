@@ -224,5 +224,25 @@ def main():
         SCREEN.blit(BG, (x_pos_bg, y_pos_bg))
         SCREEN.blit(BG, (image_width + x_pos_bg, y_pos_bg))
         if x_pos_bg <= -image_width:
-            x_pos_bg = 0  # Mistake: should be to reset the other BG
+            x_pos_bg = 0
         x_pos_bg -= game_speed
+
+           def background():
+        global x_pos_bg, y_pos_bg
+        image_width = BG.get_width()
+        SCREEN.blit(BG, (x_pos_bg, y_pos_bg))
+        SCREEN.blit(BG, (image_width + x_pos_bg, y_pos_bg))
+        if x_pos_bg <= -image_width:
+            x_pos_bg = 0
+        x_pos_bg -= game_speed
+
+    # Fix the logic to prevent double background blitting
+    if x_pos_bg <= -image_width:
+        x_pos_bg = 0
+
+    while run:
+        background()
+        cloud.draw(SCREEN)
+        cloud.update()
+        score()
+        pygame.display.update()
